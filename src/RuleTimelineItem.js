@@ -6,18 +6,11 @@ import Soy from 'metal-soy';
 
 class RuleTimelineItem extends Component {
 	
-	created() {
-		this.listElements = null;
-	}
+	created() {}
 	
 	rendered() {}
 	
-	attached() {
-
-		this.listElements = this.element.querySelector('.elements-list');
-
-		this.listElements.addEventListener("change", this.changeConditionList);
-	}
+	attached() {}
 
 	detached() {}
 
@@ -25,23 +18,38 @@ class RuleTimelineItem extends Component {
 
 	changeConditionList(event) {
 		
-		let list = event.target;
+		let list = event.delegateTarget;
 		let option = list.options[list.selectedIndex];
 		let value = option.value;
 		let text = option.text;
 
-		console.log(event.delegateTarget);
+		console.log(this.elementFields[list.selectedIndex - 1]);
 
 		console.log(value + " " + text);
-
 	}
 
 }
 
+Soy.register(RuleTimelineItem, templates);
+
 RuleTimelineItem.STATE = {
+	/**
+	 * @type {Array}
+	 * @default []
+	 */	
+	elementFields: {
+		value: []
+	},
+	/**
+	 * @type {Array}
+	 * @default []
+	 */	
 	conditions: {	
 		value: []	
 	},
+	/**
+	 * @type {Array}
+	 */	
 	conditionsText: {
 		value: [
 			{name: 'Equal to', rule: 'equalto'},
@@ -56,6 +64,9 @@ RuleTimelineItem.STATE = {
 			{name: 'Does not end with', rule: 'doesnotendwith'}
 		]
 	},
+	/**
+	 * @type {Array}	 
+	 */	
 	conditionsLists: {
 		value: [
 			{name: 'Equal to', rule: 'equalto'},
@@ -65,7 +76,5 @@ RuleTimelineItem.STATE = {
 		]
 	}
 };
-
-Soy.register(RuleTimelineItem, templates);
 
 export default RuleTimelineItem;

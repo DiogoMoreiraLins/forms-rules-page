@@ -1,7 +1,7 @@
 {namespace RuleTimelineItem}
 
 /**
- * @param elements
+ * @param elementFields
  * @param? conditions
  */
 {template .render}
@@ -14,11 +14,13 @@
 				<h5>If</h5>
 
 				<div class="form-group">									    
-				    <select class="form-control elements-list">
+				    <select class="form-control elements-list" data-onchange="changeConditionList">
 				    	<option value="" disabled>Choose an element...</option>
-				    	{foreach $element in $elements}
-				        	<option value="{$element.type}">{$element.field}</option>
-				    	{/foreach}				        
+				    	{if length($elementFields) > 0}
+					    	{foreach $element in $elementFields}
+					        	<option value="{$element.type}">{$element.field}</option>
+					    	{/foreach}				    
+				    	{/if}    
 				    </select>
 				</div>
 
