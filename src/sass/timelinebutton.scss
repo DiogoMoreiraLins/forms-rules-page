@@ -1,0 +1,23 @@
+a.btn-primary.btn-action {
+	border-radius: 30px;
+    width: 42px;
+    height: 42px;
+}
+
+div.timeline-increment-icon.add-condition {
+
+	position: relative;
+
+	&::before {
+	   	background-color: #869CAD;
+	    bottom: 0px;
+	    content: '';
+	    display: block;
+	    left: 20px;	    
+	    position: absolute;	    
+	    top: -10px;
+	    z-index: -1;
+	    width: 2px;
+    }
+
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo: Modal</title>
+
+	<!-- <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css"> -->
+
+	<link rel="stylesheet" href="https://npmcdn.com/lexicon-ux@1.0.1/build/css/atlas.css">
+	<!-- <link rel="stylesheet" href="https://npmcdn.com/lexicon-ux@1.0.1/build/images/icons/icons.svg">	 -->
+	
+	<link rel="stylesheet" href="../build/formrules.css">
+
+	<script src="../build/globals/formrules.js"></script>
+</head>
+<body>	
+	
+	<script type="text/javascript">
+		window.formRuler = new metal.FormRules({
+			maxActions: 2,
+			elements:[
+				{field: 'Nome', type: 'text'},
+				{field: 'Sobrenome', type: 'text'},
+				{field: 'Idade', type: 'number'}
+			]
+		});
+	</script>
+
+</body>
+</html>

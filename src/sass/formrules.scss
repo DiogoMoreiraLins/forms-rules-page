@@ -1,0 +1,33 @@
+body {
+	background-color: #f5f7f8;
+}
+
+.timeline {
+
+	.timeline-item:first-child {
+		.timeline-icon {
+			background-color: #869CAD;	
+		}
+	}
+
+	&.rules-list {
+	
+		.timeline-item:first-child::before {
+			top: 36px;
+		}
+
+	}	
+
+	&.action-list {
+	
+		.timeline-item:last-child::before {
+			bottom: 62px;
+		}
+		
+		& + div div::before {			
+		    top: -72px;		   
+		}
+
+	}
+
+}

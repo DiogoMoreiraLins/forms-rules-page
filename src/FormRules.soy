@@ -1,0 +1,75 @@
+{namespace FormRules}
+
+/**
+ * @param? maxActions
+ * @param elements
+ * @param? rules
+ * @param? actions
+ */
+{template .render}
+
+	{@param? addRule: any}
+	{@param? addAction: any}
+	{@param? shownActionButton: bool}
+
+	{let $canAddMoreActions: $maxActions > 1 ? true : false /}
+
+	<div id="wrapper">
+
+		<section class="container main-nav-container">
+			
+			<h2 id="sans-serif">Apply Show and Hide Rule</h2>
+			<h4 id="sans-serif">Define here a condition to show or hide fields and elements from your current form.</h4>
+
+			<div class id="mainContent">
+
+				<div class="">
+
+					<ul class="timeline rules-list">
+						
+						{call RulesHeader.render}
+							{param title: 'Condition' /}
+							{param hasSecondCondition: true /}
+						{/call}
+
+						{foreach $rule in $rules}
+							{call RuleTimelineItem.render}
+								{param elements: $elements /}	
+							{/call}
+						{/foreach}
+
+					</ul>
+					
+					{call TimelineButton.render}
+						{param onClick: $addRule /}
+						{param showButton: true /}
+					{/call}
+
+					<ul class="timeline action-list">
+						
+						{call RulesHeader.render}
+							{param title: 'Action' /}
+							{param hasSecondCondition: false /}
+						{/call}
+
+						{foreach $action in $actions}
+							{call ActionTimelineItem.render}								
+							{/call}
+						{/foreach}
+
+					</ul>
+
+					{call TimelineButton.render}
+						{param onClick: $addAction /}
+						{param showButton: $canAddMoreActions and $shownActionButton /}
+					{/call}
+
+				</div>
+
+			</div>
+
+		</section>
+
+	</div>
+
+{/template}
