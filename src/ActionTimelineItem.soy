@@ -1,25 +1,39 @@
 {namespace ActionTimelineItem}
 
+/**
+ * @param elementFields
+ * @param indexAction
+ */
 {template .render}
+
+	{@param? filterSearch_: any}
+	{@param removeAction: any}
+	{@param? itemListClick_: any}
+
+	{@param? showListItens: bool}
 
 	<li class="timeline-item">
 		
 		<div class="panel panel-default">
 			<div class="panel-body flex-container">
 				
-				<div class="form-group">
-					<label>Do</label>									   
+				<h5>Do</h5>
+
+				<div class="form-group">														  
 				    <select class="form-control">
 				    	<option value="" disabled selected>Choose an action...</option>
-				        <option>1</option>
-				        <option>2</option>
-				        <option>3</option>									        
+				        <option>Show</option>
+				        <option>Hide</option>				        
 				    </select>
 				</div>
 
-				<div class="form-group">
-				    <label>Default text input</label>
-				    <input class="form-control" placeholder="Choose the field" type="text">
+				<div class="form-group flex-item-expand">				    
+				    <input class="form-control" data-onkeyup="{$filterSearch_}" placeholder="Choose an element..." type="text">
+				    <ul class="list-elements" style="display: {$showListItens ? 'block' : 'none'}">
+				    	{foreach $element in $elementFields}	
+				    		<li data-onclick="{$itemListClick_}" data-index="{index($element)}">{$element.field}</li>
+				    	{/foreach}					    	
+				    </ul>
 				</div>
 
 				<div class="timeline-increment-icon">
@@ -28,6 +42,12 @@
 
 			</div>
 
+		</div>
+
+		<div class="container-trash" data-onclick="{$removeAction}" data-index="{$indexAction}">
+			<svg class="lexicon-icon">
+			    <use xlink:href="../imgs/icons.svg#trash" />
+			</svg>
 		</div>
 
 	</li>

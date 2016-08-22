@@ -1,12 +1,15 @@
 a.btn-primary.btn-action {
 	border-radius: 30px;
-    width: 42px;
-    height: 42px;
+    width: 32px;
+    height: 32px;
+    margin-left: 5px;
 }
 
 div.timeline-increment-icon.add-condition {
 
 	position: relative;
+	padding-top: 6px;
+    padding-bottom: 16px;
 
 	&::before {
 	   	background-color: #869CAD;

@@ -2,9 +2,17 @@
 
 /**
  * @param elementFields
+ * @param? copyElementFields
  * @param? conditions
+ * @param? operator
  */
 {template .render}
+
+	{@param removeRule: any}
+	{@param? indexRule: number}
+
+	{@param? showSecondList: bool}
+	{@param? showTextInput: bool}
 
 	<li class="timeline-item">
 		
@@ -25,12 +33,28 @@
 				</div>
 
 				<div class="form-group">									    
-				    <select class="form-control conditions-list">
+				    <select class="form-control conditions-list" data-onchange="selectConditionItem_">
 				    	<option value="" disabled selected>Choose a condition...</option>
 				    	{foreach $condition in $conditions}
 				        	<option>{$condition.name}</option>
 				    	{/foreach}					        
 				    </select>
+				</div>
+
+				//Second element list
+				<div class="form-group" style="display: {$showSecondList ? 'block' : 'none'}">									    
+				    <select class="form-control elements-list" data-onchange="changeConditionList">
+				    	<option value="" disabled>Choose an element...</option>
+				    	{if length($copyElementFields) > 0}
+					    	{foreach $cElement in $copyElementFields}
+					        	<option value="{$cElement.type}">{$cElement.field}</option>
+					    	{/foreach}				    
+				    	{/if}    
+				    </select>
+				</div>
+
+				<div class="form-group flex-item-expand" style="display: {$showTextInput ? 'block' : 'none'}">				    
+				    <input class="form-control" placeholder="Enter a text..." type="text">				
 				</div>
 
 				<div class="timeline-increment-icon">
@@ -39,6 +63,17 @@
 
 			</div>
 		</div>
+
+		<div class="operator">
+			<div>{$operator}</div>		
+		</div>
+
+		<div class="container-trash" data-onclick="{$removeRule}" data-index="{$indexRule}">
+			<svg class="lexicon-icon">
+			    <use xlink:href="../imgs/icons.svg#trash" />
+			</svg>
+		</div>
+
 	</li>
 
 {/template}

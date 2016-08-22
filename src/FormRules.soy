@@ -8,9 +8,16 @@
  */
 {template .render}
 
-	{@param? addRule: any}
-	{@param? addAction: any}
+	{@param? addRule_: any}
+	{@param? removeRule_: any}
+
+	{@param? addAction_: any}
+	{@param? removeAction_: any}
+
 	{@param? shownActionButton: bool}
+	{@param? operator: string}
+
+	{@param? conditionClick_: any}
 
 	{let $canAddMoreActions: $maxActions > 1 ? true : false /}
 
@@ -30,18 +37,23 @@
 						{call RulesHeader.render}
 							{param title: 'Condition' /}
 							{param hasSecondCondition: true /}
+							{param operator: $operator /}
+							{param conditionClick: $conditionClick_ /}
 						{/call}
 
 						{foreach $rule in $rules}
 							{call RuleTimelineItem.render}
 								{param elementFields: $elements /}	
+								{param operator: $operator /}
+								{param removeRule: $removeRule_ /}
+								{param indexRule: index($rule) /}	
 							{/call}
 						{/foreach}
 
 					</ul>
 					
 					{call TimelineButton.render}
-						{param onClick: $addRule /}
+						{param onClick: $addRule_ /}
 						{param showButton: true /}
 					{/call}
 
@@ -50,17 +62,21 @@
 						{call RulesHeader.render}
 							{param title: 'Action' /}
 							{param hasSecondCondition: false /}
+							{param operator: $operator /}
 						{/call}
 
 						{foreach $action in $actions}
-							{call ActionTimelineItem.render}								
+							{call ActionTimelineItem.render}
+								{param elementFields: $elements /}	
+								{param removeAction: $removeAction_ /}
+								{param indexAction: index($action) /}									
 							{/call}
 						{/foreach}
 
 					</ul>
 
 					{call TimelineButton.render}
-						{param onClick: $addAction /}
+						{param onClick: $addAction_ /}
 						{param showButton: $canAddMoreActions and $shownActionButton /}
 					{/call}
 

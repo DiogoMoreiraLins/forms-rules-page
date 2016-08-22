@@ -1,10 +1,49 @@
 .timeline-item {
-	padding-bottom: 10px;	
+	
+	position: relative;
+	color: #869CAD;
+
+	&:first-child {
+		.timeline-icon {
+			background-color: #869CAD;	
+		}
+	}
 
 	& .timeline-icon {
 
 		border: 2px solid #869CAD;
 
 	}
+
+	.container-trash {
+		position: absolute;
+	    top: 0;
+	    color: #869CAD;
+	    cursor: pointer;
+	    right: 0;
+	    padding: 10px;
+	    display: none;
+
+	    &:hover {
+	    	color: #65B6F0;
+	    }
+	}
+
+	&:hover > .container-trash{
+		display: block;
+	}
+
+	.form-group {
+		margin: 0 10px;
+	}
+
+	.form-control {
+		color: #869CAD;
+	}
+
+	input.form-control::placeholder {
+		color: #869CAD;
+	}
+
 }
 

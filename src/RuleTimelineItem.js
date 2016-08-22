@@ -16,29 +16,99 @@ class RuleTimelineItem extends Component {
 
 	disposed() {}
 
+	/**
+	 * @param {!Event} event
+	 * @protected
+	 */
 	changeConditionList(event) {
 		
-		let list = event.delegateTarget;
-		let option = list.options[list.selectedIndex];
-		let value = option.value;
-		let text = option.text;
+		let list,
+			element,
+			type;
 
-		console.log(this.elementFields[list.selectedIndex - 1]);
+		list = event.delegateTarget;
+		element = this.elementFields[list.selectedIndex - 1];		
+		type = element.type;
 
-		console.log(value + " " + text);
+		if(type === 'text' || type === 'date') {			
+			this.conditions = this.conditionsText;
+		}else if(type === 'list'){
+			this.conditions = this.conditionsLists;
+		}		
+
+		this.currentElementId = element.id;
 	}
 
+	/**
+	 * @param {!Event} event
+	 * @protected
+	 */
+	selectConditionItem_(event) {
+
+		let list,			
+			i = 0,
+			maxElements = 0,
+			index = 0;
+
+		list = event.delegateTarget;		
+		rule = this.conditions[list.selectedIndex - 1].rule;
+
+		let otherElements = function(element) {			
+			return element.id != this;
+		}
+
+		if(rule === 'equalto' || rule === 'notequalto') {
+			
+			this.showSecondList = true;
+			this.showTextInput = false;
+
+			this.copyElementFields = this.elementFields.filter(otherElements, this.currentElementId); 
+			this.copyElementFields = this.copyElementFields;
+		
+		} else if(rule === 'contain' || rule === 'doesnotcontain' || rule === 'startwith' ||
+			rule === 'doesnotstartwith' || rule === 'endwith' || rule === 'doesnotendwith') {
+
+			this.showSecondList = false;
+			this.showTextInput = true;
+
+		} else {
+			this.showSecondList = false;
+			this.showTextInput = false;
+		}
+	}	
 }
 
 Soy.register(RuleTimelineItem, templates);
 
 RuleTimelineItem.STATE = {
+	currentElementId: {
+		value: ''
+	},
 	/**
 	 * @type {Array}
 	 * @default []
 	 */	
 	elementFields: {
 		value: []
+	},
+	/**
+	 * @type {Array}
+	 * @default []
+	 */	
+	copyElementFields: {
+		value: []
+	},
+	/**
+	 * @type {boolean}
+	 */
+	showSecondList: {		
+		value: false
+	},
+	/**
+	 * @type {boolean}
+	 */
+	showTextInput: {		
+		value: false
 	},
 	/**
 	 * @type {Array}
@@ -65,7 +135,7 @@ RuleTimelineItem.STATE = {
 		]
 	},
 	/**
-	 * @type {Array}	 
+	 * @type {Array}
 	 */	
 	conditionsLists: {
 		value: [

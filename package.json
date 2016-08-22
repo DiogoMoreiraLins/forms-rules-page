@@ -1,9 +1,9 @@
 {
-	"name": "metal-modal",
+	"name": "form-rules-page",
 	"version": "0.0.0",
-	"description": "My awesome Metal.js project",
+	"description": "Test AB Form Rules project",
 	"license": "BSD",
-	"repository": "my-user/metal-modal",
+	"repository": "DiogoMoreiraLins/forms-rules-page",
 	"engines": {
 		"node": ">=0.12.0",
 		"npm": ">=3.0.0"

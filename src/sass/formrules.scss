@@ -1,33 +1,90 @@
 body {
 	background-color: #f5f7f8;
+	color: #869CAD;
 }
 
 .timeline {
 
-	.timeline-item:first-child {
-		.timeline-icon {
-			background-color: #869CAD;	
+	.panel .panel-body {
+		position: relative;
+
+		.dropdown {
+			display: block;
+		    position: absolute;
+		    right: 0;
+		    top: 0;
+		    margin-top: 8px;
+		    margin-right: 20px;
+		}
+
+		button {
+			padding: 4px 12px;
 		}
 	}
 
 	&.rules-list {
-	
-		.timeline-item:first-child::before {
-			top: 36px;
-		}
 
+		.timeline-item {
+
+			&:first-child::before {
+				top: 35px;
+			}
+
+			&:last-child > .operator {
+				display: none;
+			}
+			
+			.operator {
+
+				position: relative;    				
+				display: inline-block;
+
+				& > div {						
+				    border: 1px solid #869CAD;
+				    border-radius: 4px;		 
+				    padding: 5px 17px;
+				    font-size: 14px;
+				    color: #869CAD;
+				    margin-top: 10px;				    
+				    background-color: #fff;		
+				    border: 0 solid transparent;
+				    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);	   
+				}
+			}
+		}	
 	}	
 
 	&.action-list {
 	
 		.timeline-item:last-child::before {
-			bottom: 62px;
+			bottom: 42px;
 		}
 		
 		& + div div::before {			
-		    top: -72px;		   
+		    top: -72px;	
+		    bottom: 20px;	   
 		}
 
-	}
+		.list-elements {	
+			z-index: 1;		
+			position: absolute;
+			background-color: white;
+			border: 0 solid transparent;
+			box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+			margin: 5px 0;
+			padding: 0;
 
+			li {
+				padding: 7px;
+				list-style: none;				
+
+				&:hover {
+					cursor: pointer;
+					color: #65B6F0;
+					background-color: #F7FAFA;
+				}
+			}
+		}
+	}
 }
