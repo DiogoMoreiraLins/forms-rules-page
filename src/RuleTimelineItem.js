@@ -6,7 +6,9 @@ import Soy from 'metal-soy';
 
 class RuleTimelineItem extends Component {
 
-	created() {}
+	created() {
+		this.rule.value = [];
+	}
 
 	rendered() {}
 
@@ -31,6 +33,7 @@ class RuleTimelineItem extends Component {
 
 		this.rule.fieldId = element.id;
 		this.rule.fieldType = element.type;
+		this.rule.value = element.value;
 		this.rule = this.rule;
 	}
 
