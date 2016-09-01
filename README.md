@@ -1,6 +1,5 @@
 # forms-rules-page
-Functional mockup for the A/B test on the Rule Screen of the Forms Builder;
-Using metal JS and Soy;
+Functional mockup for the A/B test on the Rule Screen of the Forms Builder, using metal JS and Soy
 
 ## Setup
 
