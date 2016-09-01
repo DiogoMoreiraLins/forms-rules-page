@@ -1,0 +1,48 @@
+.timeline-icon {
+	display: none;
+}
+
+.timeline-item {
+	padding: 0;
+	padding-bottom: 12px;
+}
+
+.timeline-item:before {
+	display: none;
+	left: 50%;
+}
+
+div.timeline-increment-icon.add-condition {
+	left: 50%;
+    margin-left: -10px;
+}
+
+.footer-button {
+	margin-left: 22px;
+}
+
+div.timeline-increment-icon.add-condition::before {
+	display: none;
+}
+
+div.timeline-increment-icon.add-condition::after {	
+ 	bottom: 0px;
+    content: 'ADD CONDITION';
+    color: #65B6F0;
+    position: absolute;
+    width: auto;
+    font-size: 12px;
+    background-color: transparent;    
+    left: -25px;
+    top: 38px;
+}
+
+.add-action::after {	 	
+    content: 'ADD ACTION' !important;
+    left: -14px !important;
+}
+
+div.timeline-increment-icon.add-condition {   
+	padding-top: 0px; 
+    padding-bottom: 40px;
+}

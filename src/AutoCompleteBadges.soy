@@ -1,0 +1,41 @@
+{namespace AutoCompleteBadges}
+
+/**
+ * @param copyElements
+ * @param elementBadges
+ * @param showListItens
+ * @param filterSearch
+ * @param itemListClick
+ * @param removeBadgeList
+ */
+{template .render}
+
+	<div class="autocomplete-badges">
+		<div class="flex-container" > 
+			<div class="form-group badges-list">					
+				<ul class="list-badge-fields">
+					{foreach $badge in $elementBadges}
+						<li>
+							<span class="badge badge-primary">
+							    {$badge.field}
+							    <a class="icon-monospaced" data-index="{index($badge)}" data-onclick="{$removeBadgeList}">
+							        <svg class="lexicon-icon">
+							            <use xlink:href="../imgs/icons.svg#times"></use>
+							        </svg>
+							    </a>
+							</span>
+						</li>
+					{/foreach}
+					<li>
+						 <input class="form-control fields-form" data-onkeyup="{$filterSearch}" placeholder="Choose an element..." type="text">						    					    
+						 <ul class="list-elements" style="display: {$showListItens ? 'block' : 'none'}">
+					    	{foreach $element in $copyElements}	
+					    		<li data-onclick="{$itemListClick}" data-index="{index($element)}">{$element.field}</li>
+					    	{/foreach}					    	
+					    </ul>
+					</li>			
+				</ul>				
+			</div>						
+	    </div>	
+	</div>
+{/template}

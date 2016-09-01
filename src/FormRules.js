@@ -9,34 +9,49 @@ class FormRules extends Component {
 
 	created() {
 		
+		if(this.fixedActions) {
+			let i;
+
+			for(i = 0; i < this.maxActions; i += 1) {			
+				let action = {};
+				action.elementBadges = [];				
+				action.name = (i == 0) ? 'Show' : 'Hide';
+
+				this.actions.push(action);	
+			}
+			this.actions = this.actions;			
+		}
+		else {	
+			let action = {};	
+			action.elementBadges = [];			
+			this.actions.push(action);	
+		}
+
+		this.copyElements = {};
+		this.copyElements = this.elements.slice();
 	}
 	
-	rendered() {
-		
-	}
+	rendered() {}
 	
-	attached() {
+	attached() {}
 
-	}
+	detached() {}
 
-	detached() {
-		
-	}
-
-	disposed() {
-		
-	}
+	disposed() {}
 	
 	/**
+	 * Add new rule item
 	 * @param {!Event} event
 	 * @protected
 	 */
 	addRule_(event) {
-		this.rules.push({});
-		this.rules = this.rules;		
+		let rule = {};
+		this.rules.push(rule);
+		this.rules = this.rules;
 	}
 
 	/**
+	 * Remove a existing rule item	
 	 * @param {!Event} event	 
 	 * @protected
 	 */
@@ -48,31 +63,33 @@ class FormRules extends Component {
 		if(this.rules.length > 1) {
 		 	item = event.delegateTarget;
 			index = parseInt(item.getAttribute('data-index'));
-
 		 	this.rules.splice(index, 1);
-
 		 	this.rules = this.rules;		 
 		}	
 	}
 
 	/**
+	 * Add new action item
 	 * @param {!Event} event
 	 * @protected
 	 */
 	addAction_(event) {
 
 		if(this.maxActions == 2 && this.actions.length < 2) {
-			this.actions.push({});
+			
+			let action = {};
+			action.elementBadges = [];
+			this.actions.push(action);
 			this.actions = this.actions;
 
 			if(this.actions.length == 2) {
-				this.shownActionButton = false;
-				this.shownActionButton = this.shownActionButton;
+				this.shownActionButton = false;				
 			}
 		}
 	}
 
 	/**
+	 * Remove a existing action item	
 	 * @param {!Event} event	 
 	 * @protected
 	 */
@@ -85,24 +102,26 @@ class FormRules extends Component {
 			item = event.delegateTarget;
 			index = parseInt(item.getAttribute('data-index'));
 
-			this.actions.splice(index, 1);
+			this.currentActionIndex = index;
 
+			this.actions.splice(index, 1);
 			this.actions = this.actions;
 
 			if(this.actions.length == 1) {
-				this.shownActionButton = true;
-				this.shownActionButton = this.shownActionButton;	
-			}			
+				this.shownActionButton = true;				
+			}
+
+			this.restoreCopyElements();			
 		}
 	}
 
 	/**
+	 * Changes the condition term for the group of rules
 	 * @param {!Event} event
 	 * @protected
 	 */
 	conditionClick_(event) {
 		let li = event.delegateTarget;
-		
 		this.operator = this.getTextItem_(li);
 	}
 
@@ -134,6 +153,33 @@ class FormRules extends Component {
 		}
 	}
 
+	restoreCopyElements() {
+		let element,
+			list;
+
+		list = this.hashRestoredElements[this.currentActionIndex];
+
+		for(let i = 0; i < list.length; i += 1) {
+			element = list[i];
+			this.copyElements.splice(element.index, 0, element);
+		}
+		this.hashRestoredElements[this.currentActionIndex] = [];
+		this.copyElements = this.copyElements;
+	}
+
+	onBadgeSelected_(object) {		
+
+		this.hashRestoredElements[object.actionIndex] = object.elementBadges;
+		
+		this.copyElements.splice(object.listIndex, 1);
+		this.copyElements = this.copyElements;
+	}
+
+	onBadgeRemoved_(target) {		
+		this.copyElements.splice(target.index, 0, target);
+		this.copyElements = this.copyElements;
+	}
+
 }
 
 FormRules.STATE = {
@@ -141,8 +187,7 @@ FormRules.STATE = {
 	 * @type {number}
 	 * @default 1
 	 */
-	maxActions: {
-		value: 1		
+	maxActions: {	
 	},
 	/**
 	 * @type {boolean}
@@ -156,12 +201,27 @@ FormRules.STATE = {
 		]
 	},
 	actions: {
-		value: [
-			{}
-		]
+		value: []
+	},
+	currentActionIndex: {
+
+	},
+	hashRestoredElements: {
+		value: {}
+	},
+	copyElements: {
+		value: []
+	},
+	elements: {
+		value: []
 	},
 	operator: {
 		value: 'or'
+	},
+	/**
+	 * @type {boolean}
+	 */
+	fixedActions: {			
 	}
 };
 

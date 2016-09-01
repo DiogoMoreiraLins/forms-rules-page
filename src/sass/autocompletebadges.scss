@@ -1,0 +1,42 @@
+.autocomplete-badges {
+	
+	display: table-cell; 
+	width: 100%;
+
+	div.badges-list {
+		margin-right: 0px;		
+	}
+	
+	div.flex-item-expand {
+		margin-left: 0px;
+	}
+
+	input.form-control::placeholder {
+		color: #869CAD;
+	}
+
+	.list-badge-fields{
+		padding: 0;
+    	list-style: none;
+	
+		li {
+			display: inline-block;
+			padding: 0 2px;
+
+			span {
+				padding: 0 10px;
+
+	    		a.icon-monospaced {
+	    			height: auto;
+	    			width: auto;
+	    			cursor: pointer;
+
+	    			.lexicon-icon {
+	    				width: 18px;
+	    			}
+	    		}
+			}
+		}
+	}
+}
+

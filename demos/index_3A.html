@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Demo: Modal</title>
+
+	<link rel="stylesheet" href="https://npmcdn.com/lexicon-ux@1.0.1/build/css/atlas.css">	
+	<link rel="stylesheet" href="../build/formrules.css">
+	<link rel="stylesheet" href="./css/type_three.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="../build/globals/formrules.js"></script>
+</head>
+<body>
+
+	<header style="width: 100%; height: 64px; background-color: #29353d; margin-bottom: 16px;"></header>
+
+	<script type="text/javascript">
+		window.formRuler = new metal.FormRules({
+			maxActions: 2,	
+			fixedActions: false,		
+			elements:[
+				{field: 'Description', value: 'lorem ipsum', id: 'description-1', type: 'text'},
+				{field: 'Currency', value: [{value: 'U$'},{value: 'R$'}], id: 'currency', type: 'list'},
+				{field: 'Date', value: '05/05/2016', id: 'date-1', type: 'text'},
+				{field: 'Total Reimbursement', value: 'lorem ipsum', id: 'total-reimbursement', type: 'text'},
+				{field: 'Project', value: 'Lorem project', id: 'project', type: 'text'},
+				{field: 'Client', value: 'Ipsum Client', id: 'client', type: 'text'},
+				{field: 'Date', value: '06/06/2016', id: 'date-2', type: 'text'},
+				{field: 'Type', value: [{value: 'type1'}, {value: 'type2'}], id: 'type', type: 'list'},
+				{field: 'Exp Curren', value: [{value: 'U$'},{value: 'R$'}], id: 'exp-curren', type: 'list'},
+				{field: "Expense's Amount", value: '200', id: 'expense-amount', type: 'text'},
+				{field: 'Rei Curren', value: [{value: 'U$'},{value: 'R$'}], id: 'rei-curren', type: 'list'},
+				{field: "Reimburserment's Amount", value: '300', id: 'reimbursement-amount', type: 'text'},
+				{field: 'Description', value: 'Lorem ipsum 2', id: 'description-2', type: 'text'}
+			]
+		});
+	</script>
+
+</body>
+</html>

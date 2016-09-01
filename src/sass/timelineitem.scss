@@ -10,12 +10,10 @@
 	}
 
 	& .timeline-icon {
-
 		border: 2px solid #869CAD;
-
 	}
 
-	.container-trash {
+	.container__trash {
 		position: absolute;
 	    top: 0;
 	    color: #869CAD;
@@ -23,13 +21,17 @@
 	    right: 0;
 	    padding: 10px;
 	    display: none;
-
+		
 	    &:hover {
 	    	color: #65B6F0;
 	    }
+
+		&--hide {
+			display: none;
+		}
 	}
 
-	&:hover > .container-trash{
+	&:hover > .container__trash{
 		display: block;
 	}
 
@@ -41,9 +43,15 @@
 		color: #869CAD;
 	}
 
-	input.form-control::placeholder {
-		color: #869CAD;
+	.rule-choose-box {
+		// width: 200px; 
+		// float: left; 
+		display: table-cell;
 	}
 
+	.action-panel {
+		width: 100%; 
+		display: table;
+	}
 }
 

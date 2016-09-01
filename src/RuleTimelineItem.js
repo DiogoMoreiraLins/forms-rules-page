@@ -5,11 +5,11 @@ import Component from 'metal-component';
 import Soy from 'metal-soy';
 
 class RuleTimelineItem extends Component {
-	
+
 	created() {}
-	
+
 	rendered() {}
-	
+
 	attached() {}
 
 	detached() {}
@@ -17,133 +17,138 @@ class RuleTimelineItem extends Component {
 	disposed() {}
 
 	/**
+	 * Set the id and type of element chosen 
 	 * @param {!Event} event
 	 * @protected
 	 */
-	changeConditionList(event) {
-		
+	selectFieldElement(event) {
 		let list,
 			element,
 			type;
 
 		list = event.delegateTarget;
-		element = this.elementFields[list.selectedIndex - 1];		
-		type = element.type;
+		element = this.elementFields[list.selectedIndex - 1];
 
-		if(type === 'text' || type === 'date') {			
-			this.conditions = this.conditionsText;
-		}else if(type === 'list'){
-			this.conditions = this.conditionsLists;
-		}		
-
-		this.currentElementId = element.id;
+		this.rule.fieldId = element.id;
+		this.rule.fieldType = element.type;
+		this.rule = this.rule;
 	}
 
 	/**
+	 * Select the rule of condition list
 	 * @param {!Event} event
 	 * @protected
 	 */
-	selectConditionItem_(event) {
+	selectConditionElement(event) {
+		let list,
+			currentConditions,
+			currentRule;
 
-		let list,			
-			i = 0,
-			maxElements = 0,
-			index = 0;
+		list = event.delegateTarget;
+		currentConditions = this.conditions[this.rule.fieldType];
+		currentRule = currentConditions[list.selectedIndex - 1].rule;
 
-		list = event.delegateTarget;		
-		rule = this.conditions[list.selectedIndex - 1].rule;
+		this.rule.conditionRule = currentRule;
+		this.rule.showComparationList = false;
+		this.rule.showSecondList = false;
+		this.rule.showTextInput = false;
+		this.rule.comparationValue = '';
 
-		let otherElements = function(element) {			
-			return element.id != this;
-		}
+		if (currentRule === 'equalto' || currentRule === 'notequalto') {
 
-		if(rule === 'equalto' || rule === 'notequalto') {
+			this.rule.showComparationList = true;			
+
+		} else if (currentRule === 'contain' || currentRule === 'doesnotcontain' || currentRule === 'startwith' ||
+			currentRule === 'doesnotstartwith' || currentRule === 'endwith' || currentRule === 'doesnotendwith') {
 			
-			this.showSecondList = true;
-			this.showTextInput = false;
+			this.rule.showTextInput = true;
+		} 
 
-			this.copyElementFields = this.elementFields.filter(otherElements, this.currentElementId); 
-			this.copyElementFields = this.copyElementFields;
-		
-		} else if(rule === 'contain' || rule === 'doesnotcontain' || rule === 'startwith' ||
-			rule === 'doesnotstartwith' || rule === 'endwith' || rule === 'doesnotendwith') {
+		this.rule = this.rule;
+	}
 
-			this.showSecondList = false;
-			this.showTextInput = true;
+	/**
+	 * Select comparation value 
+	 * @param {!Event} event
+	 * @protected
+	 */
+	selectComparationElement(event) {
+		let list,
+			options,
+			value;
 
-		} else {
-			this.showSecondList = false;
-			this.showTextInput = false;
-		}
-	}	
+		list = event.delegateTarget;
+		options = list.options;
+
+		value = options[list.selectedIndex].value;
+
+		this.rule.comparationValue = value;
+		this.rule = this.rule;
+	}
 }
 
 Soy.register(RuleTimelineItem, templates);
 
 RuleTimelineItem.STATE = {
-	currentElementId: {
-		value: ''
-	},
+	rule: {},	
 	/**
 	 * @type {Array}
 	 * @default []
-	 */	
+	 */
 	elementFields: {
 		value: []
 	},
 	/**
 	 * @type {Array}
 	 * @default []
-	 */	
-	copyElementFields: {
-		value: []
-	},
-	/**
-	 * @type {boolean}
 	 */
-	showSecondList: {		
-		value: false
-	},
-	/**
-	 * @type {boolean}
-	 */
-	showTextInput: {		
-		value: false
-	},
-	/**
-	 * @type {Array}
-	 * @default []
-	 */	
-	conditions: {	
-		value: []	
-	},
-	/**
-	 * @type {Array}
-	 */	
-	conditionsText: {
-		value: [
-			{name: 'Equal to', rule: 'equalto'},
-			{name: 'Is not equal to', rule: 'notequalto'},
-			{name: 'Is empty', rule: 'isempty'},
-			{name: 'Is filled out', rule: 'isfilledout'},
-			{name: 'Contain', rule: 'contain'},
-			{name: 'Does no contain', rule: 'doesnotcontain'},
-			{name: 'Start with', rule: 'startwith'},
-			{name: 'Does not start with', rule: 'doesnotstartwith'},
-			{name: 'End with', rule: 'endwith'},
-			{name: 'Does not end with', rule: 'doesnotendwith'}
-		]
-	},
-	/**
-	 * @type {Array}
-	 */	
-	conditionsLists: {
-		value: [
-			{name: 'Equal to', rule: 'equalto'},
-			{name: 'Is not equal to', rule: 'notequalto'},
-			{name: 'Is empty', rule: 'isempty'},
-			{name: 'Is filled out', rule: 'isfilledout'}
-		]
+	conditions: {
+		value: {
+			text: [{
+				name: 'Equal to',
+				rule: 'equalto'
+			}, {
+				name: 'Is not equal to',
+				rule: 'notequalto'
+			}, {
+				name: 'Is empty',
+				rule: 'isempty'
+			}, {
+				name: 'Is filled out',
+				rule: 'isfilledout'
+			}, {
+				name: 'Contain',
+				rule: 'contain'
+			}, {
+				name: 'Does no contain',
+				rule: 'doesnotcontain'
+			}, {
+				name: 'Start with',
+				rule: 'startwith'
+			}, {
+				name: 'Does not start with',
+				rule: 'doesnotstartwith'
+			}, {
+				name: 'End with',
+				rule: 'endwith'
+			}, {
+				name: 'Does not end with',
+				rule: 'doesnotendwith'
+			}],
+			list: [{
+				name: 'Equal to',
+				rule: 'equalto'
+			}, {
+				name: 'Is not equal to',
+				rule: 'notequalto'
+			}, {
+				name: 'Is empty',
+				rule: 'isempty'
+			}, {
+				name: 'Is filled out',
+				rule: 'isfilledout'
+			}]
+		}
 	}
 };
 

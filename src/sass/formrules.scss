@@ -3,6 +3,21 @@ body {
 	color: #869CAD;
 }
 
+.top-informations {
+	padding-left: 18px;
+	margin-bottom: 30px;
+}
+
+.footer-button {
+	padding: 12px 24px;
+	margin-top: 12px;
+	margin-left: 56px;
+}
+
+.link-button {
+	color: #869CAD;
+}
+
 .timeline {
 
 	.panel .panel-body {
@@ -77,6 +92,7 @@ body {
 
 			li {
 				padding: 7px;
+				display: block;
 				list-style: none;				
 
 				&:hover {

@@ -3,35 +3,35 @@
 /**
  * @param? maxActions
  * @param elements
+ * @param? copyElements
+ * @param fixedActions
  * @param? rules
  * @param? actions
+ * @param? onBadgeSelected_ 
+ * @param? onBadgeRemoved_ 
  */
 {template .render}
-
+	
 	{@param? addRule_: any}
 	{@param? removeRule_: any}
-
 	{@param? addAction_: any}
 	{@param? removeAction_: any}
-
 	{@param? shownActionButton: bool}
 	{@param? operator: string}
-
 	{@param? conditionClick_: any}
 
 	{let $canAddMoreActions: $maxActions > 1 ? true : false /}
 
 	<div id="wrapper">
-
 		<section class="container main-nav-container">
-			
-			<h2 id="sans-serif">Apply Show and Hide Rule</h2>
-			<h4 id="sans-serif">Define here a condition to show or hide fields and elements from your current form.</h4>
+
+			<div class="top-informations">
+				<h2 id="sans-serif">Apply Show and Hide Rule</h2>
+				<h4 id="sans-serif">Define here a condition to show or hide fields and elements from your current form.</h4>
+			</div>
 
 			<div class id="mainContent">
-
 				<div class="">
-
 					<ul class="timeline rules-list">
 						
 						{call RulesHeader.render}
@@ -43,6 +43,8 @@
 
 						{foreach $rule in $rules}
 							{call RuleTimelineItem.render}
+								{param sizeOfRules: length($rules) /}
+								{param rule: $rule /}
 								{param elementFields: $elements /}	
 								{param operator: $operator /}
 								{param removeRule: $removeRule_ /}
@@ -53,6 +55,7 @@
 					</ul>
 					
 					{call TimelineButton.render}
+						{param fixedActions: true /}
 						{param onClick: $addRule_ /}
 						{param showButton: true /}
 					{/call}
@@ -66,26 +69,33 @@
 						{/call}
 
 						{foreach $action in $actions}
-							{call ActionTimelineItem.render}
-								{param elementFields: $elements /}	
+							{call ActionTimelineItem.render}			
+								{param events: ['badgeSelected': $onBadgeSelected_, 'badgeRemoved': $onBadgeRemoved_] /}					
+								{param sizeOfActions: length($actions) /}
+								{param copyElements: $copyElements /}	
 								{param removeAction: $removeAction_ /}
-								{param indexAction: index($action) /}									
+								{param actionIndex: index($action) /}
+								{param action: $action /}															
 							{/call}
 						{/foreach}
 
 					</ul>
 
-					{call TimelineButton.render}
-						{param onClick: $addAction_ /}
-						{param showButton: $canAddMoreActions and $shownActionButton /}
-					{/call}
-
+					{if not $fixedActions}
+						{call TimelineButton.render}
+							{param fixedActions: $fixedActions /}
+							{param onClick: $addAction_ /}
+							{param showButton: $canAddMoreActions and $shownActionButton /}
+						{/call}
+					{/if}
 				</div>
 
+				<div style="margin-bottom: 18px">
+					<button class="btn btn-primary footer-button" type="button">Add Rule</button>
+					<button class="btn btn-link footer-button link-button" type="button">Cancel</button>
+				</div>
 			</div>
-
 		</section>
-
 	</div>
 
 {/template}

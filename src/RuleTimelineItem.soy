@@ -1,20 +1,17 @@
 {namespace RuleTimelineItem}
 
 /**
+ * @param sizeOfRules
+ * @param rule
  * @param elementFields
- * @param? copyElementFields
+ * @param operator
+ * @param removeRule
+ * @param indexRule
  * @param? conditions
- * @param? operator
  */
 {template .render}
 
-	{@param removeRule: any}
-	{@param? indexRule: number}
-
-	{@param? showSecondList: bool}
-	{@param? showTextInput: bool}
-
-	<li class="timeline-item">
+	<li class="timeline-item" data-rule="{$rule}">
 		
 		<div class="panel panel-default">
 			<div class="panel-body flex-container">
@@ -22,45 +19,55 @@
 				<h5>If</h5>
 
 				<div class="form-group">									    
-				    <select class="form-control elements-list" data-onchange="changeConditionList">
-				    	<option value="" disabled>Choose an element...</option>
+				    <select class="form-control elements-list" data-onchange="selectFieldElement">
+				    	<option value="" disabled {if not $rule.fieldId}selected{/if}>Choose an element...</option>
 				    	{if length($elementFields) > 0}
 					    	{foreach $element in $elementFields}
-					        	<option value="{$element.type}">{$element.field}</option>
+					        	<option {if $rule.fieldId == $element.id}selected{/if} value="{$element.type}">{$element.field}</option>
 					    	{/foreach}				    
 				    	{/if}    
 				    </select>
 				</div>
 
 				<div class="form-group">									    
-				    <select class="form-control conditions-list" data-onchange="selectConditionItem_">
-				    	<option value="" disabled selected>Choose a condition...</option>
-				    	{foreach $condition in $conditions}
-				        	<option>{$condition.name}</option>
-				    	{/foreach}					        
+				    <select class="form-control conditions-list" data-onchange="selectConditionElement">
+				    	<option value="" disabled {if not $rule.fieldType}selected{/if}>Choose a condition...</option>
+				    	{if $rule.fieldType}
+				    		{foreach $condition in $conditions[$rule.fieldType]}
+				        		<option>{$condition.name}</option>
+				    		{/foreach}
+				    	{/if}				    	
 				    </select>
 				</div>
 
-				//Second element list
-				<div class="form-group" style="display: {$showSecondList ? 'block' : 'none'}">									    
-				    <select class="form-control elements-list" data-onchange="changeConditionList">
+				<div class="form-group" style="display: {$rule.showComparationList ? 'block' : 'none'}">									    
+				    <select class="form-control comparation-list" data-onchange="selectComparationElement">
+				    	<option value="" disabled selected>Choose a comparation...</option>
+				    	<option value="value">Value</option>
+				    	<option value="field">Other field</option>		        
+				    </select>
+				</div>
+			
+				<div class="form-group" style="display: {$rule.showSecondList or $rule.comparationValue == 'field' ? 'block' : 'none'}">									    
+				    <select class="form-control elements-second-list" >
 				    	<option value="" disabled>Choose an element...</option>
-				    	{if length($copyElementFields) > 0}
-					    	{foreach $cElement in $copyElementFields}
-					        	<option value="{$cElement.type}">{$cElement.field}</option>
+				    	{if length($elementFields) > 0}
+					    	{foreach $cElement in $elementFields}
+					    		{if $cElement.id != $rule.fieldId}
+					        		<option value="{$cElement.type}">{$cElement.field}</option>
+					        	{/if}	
 					    	{/foreach}				    
 				    	{/if}    
 				    </select>
 				</div>
 
-				<div class="form-group flex-item-expand" style="display: {$showTextInput ? 'block' : 'none'}">				    
-				    <input class="form-control" placeholder="Enter a text..." type="text">				
+				<div class="form-group flex-item-expand" style="display: {$rule.showTextInput or $rule.comparationValue == 'value' ? 'block' : 'none'}">							   
+				    <input class="form-control input-value" placeholder="Enter a text..." type="text">				
 				</div>
 
 				<div class="timeline-increment-icon">
 					<span class="timeline-icon"></span>
 				</div>
-
 			</div>
 		</div>
 
@@ -68,12 +75,11 @@
 			<div>{$operator}</div>		
 		</div>
 
-		<div class="container-trash" data-onclick="{$removeRule}" data-index="{$indexRule}">
+		<div class="{$sizeOfRules > 1 ? 'container__trash' : 'container__trash--hide'}" data-onclick="{$removeRule}" data-index="{$indexRule}">
 			<svg class="lexicon-icon">
 			    <use xlink:href="../imgs/icons.svg#trash" />
 			</svg>
 		</div>
-
 	</li>
 
 {/template}

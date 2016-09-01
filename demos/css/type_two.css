@@ -1,0 +1,21 @@
+.timeline-icon {
+	display: none;
+}
+
+.timeline-item {
+	padding: 0;
+	padding-bottom: 12px;
+}
+
+.timeline-item:before {
+	left: 50%;
+}
+
+div.timeline-increment-icon.add-condition {
+	left: 50%;
+    margin-left: -10px;
+}
+
+.footer-button {
+	margin-left: 22px;
+}
