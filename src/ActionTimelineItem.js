@@ -131,6 +131,19 @@ class ActionTimelineItem extends Component {
 		this.emit('badgeSelected', object);		
 	}
 
+	selectFieldElement_(event) {
+		// let list,
+		// 	element,
+		// 	type;
+
+		// list = event.delegateTarget;
+		// element = this.copyElements[list.selectedIndex - 1];
+
+		// element.selected = true;
+			
+		// this.emit('elementSelected', element);		
+	}
+
 	/**
 	 * Remove a badge field from array
 	 * @param {!Event} event

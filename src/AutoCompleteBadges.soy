@@ -2,19 +2,22 @@
 
 /**
  * @param copyElements
- * @param elementBadges
+ * @param action
  * @param showListItens
  * @param filterSearch
  * @param itemListClick
  * @param removeBadgeList
+ * @param multipleChoose
+ * @param selectFieldElement
  */
 {template .render}
 
 	<div class="autocomplete-badges">
+
 		<div class="flex-container" > 
-			<div class="form-group badges-list">					
+			<div class="form-group badges-list" style="display: {$multipleChoose? 'block' : 'none'}">					
 				<ul class="list-badge-fields">
-					{foreach $badge in $elementBadges}
+					{foreach $badge in $action.elementBadges}
 						<li>
 							<span class="badge badge-primary">
 							    {$badge.field}
@@ -35,7 +38,16 @@
 					    </ul>
 					</li>			
 				</ul>				
-			</div>						
+			</div>	
+
+			<div class="form-group" style="display: {$multipleChoose? 'none' : 'block'}">									    
+			    <select class="form-control elements-list" data-onchange="{$selectFieldElement}">
+			    	<option value="" disabled selected>Choose an element...</option>		    				    			    	
+			    	{foreach $element in $copyElements}
+			        	<option value="{$element.type}">{$element.field}</option>
+			    	{/foreach}				    			    	
+			    </select>
+			</div>					
 	    </div>	
 	</div>
 {/template}

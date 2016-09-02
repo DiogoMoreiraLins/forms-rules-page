@@ -74,15 +74,13 @@ class FormRules extends Component {
 	 * @protected
 	 */
 	addAction_(event) {
-
-		if(this.maxActions == 2 && this.actions.length < 2) {
-			
+		if(this.actions.length <= this.maxActions) {
 			let action = {};
 			action.elementBadges = [];
 			this.actions.push(action);
 			this.actions = this.actions;
 
-			if(this.actions.length == 2) {
+			if(this.actions.length == this.maxActions) {
 				this.shownActionButton = false;				
 			}
 		}
@@ -107,7 +105,7 @@ class FormRules extends Component {
 			this.actions.splice(index, 1);
 			this.actions = this.actions;
 
-			if(this.actions.length == 1) {
+			if(this.actions.length < this.maxActions) {
 				this.shownActionButton = true;				
 			}
 
@@ -157,18 +155,19 @@ class FormRules extends Component {
 		let element,
 			list;
 
-		list = this.hashRestoredElements[this.currentActionIndex];
+		list = this.hashRestoredElements[this.currentActionIndex];gist 
 
-		for(let i = 0; i < list.length; i += 1) {
-			element = list[i];
-			this.copyElements.splice(element.index, 0, element);
+		if(list){
+			for(let i = 0; i < list.length; i += 1) {
+				element = list[i];
+				this.copyElements.splice(element.index, 0, element);
+			}
+			this.hashRestoredElements[this.currentActionIndex] = [];
+			this.copyElements = this.copyElements;
 		}
-		this.hashRestoredElements[this.currentActionIndex] = [];
-		this.copyElements = this.copyElements;
 	}
 
 	onBadgeSelected_(object) {		
-
 		this.hashRestoredElements[object.actionIndex] = object.elementBadges;
 		
 		this.copyElements.splice(object.listIndex, 1);

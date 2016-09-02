@@ -9,6 +9,7 @@
  * @param? actions
  * @param? onBadgeSelected_ 
  * @param? onBadgeRemoved_ 
+ * @param? onElementSelected_
  */
 {template .render}
 	
@@ -20,9 +21,10 @@
 	{@param? operator: string}
 	{@param? conditionClick_: any}
 
-	{let $canAddMoreActions: $maxActions > 1 ? true : false /}
+	{let $multipleChoose: $maxActions <= 2 ? true : false /}
 
 	<div id="wrapper">
+
 		<section class="container main-nav-container">
 
 			<div class="top-informations">
@@ -70,12 +72,13 @@
 
 						{foreach $action in $actions}
 							{call ActionTimelineItem.render}			
-								{param events: ['badgeSelected': $onBadgeSelected_, 'badgeRemoved': $onBadgeRemoved_] /}					
+								{param events: ['badgeSelected': $onBadgeSelected_, 'badgeRemoved': $onBadgeRemoved_, 'elementSelected': $onElementSelected_] /}					
 								{param sizeOfActions: length($actions) /}
 								{param copyElements: $copyElements /}	
 								{param removeAction: $removeAction_ /}
 								{param actionIndex: index($action) /}
-								{param action: $action /}															
+								{param action: $action /}
+								{param multipleChoose: $multipleChoose /}
 							{/call}
 						{/foreach}
 
@@ -85,7 +88,7 @@
 						{call TimelineButton.render}
 							{param fixedActions: $fixedActions /}
 							{param onClick: $addAction_ /}
-							{param showButton: $canAddMoreActions and $shownActionButton /}
+							{param showButton: $shownActionButton /}
 						{/call}
 					{/if}
 				</div>
