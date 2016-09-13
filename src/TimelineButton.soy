@@ -3,13 +3,13 @@
 /**
  * @param? fixedActions
  * @param onClick
- * @param showButton
+ * @param show
  */
 {template .render}
 
 	{let $addAction: not $fixedActions ? 'add-action' : '' /}
 
-	<div class="addbutton-timeline-item" style="display: {$showButton ? 'block' : 'none'}">
+	<div class="addbutton-timeline-item" style="display: {$show ? 'block' : 'none'}">
 		<div class="timeline-increment-icon add-condition {$addAction}">
 			<a class="btn btn-primary btn-action" data-onclick="{$onClick}">
 			    <svg style="margin-left: -2px;" class="icon-monospaced lexicon-icon" viewBox="0 0 512 512">				

@@ -1,9 +1,10 @@
 'use strict';
 
 import { core, string } from 'metal';
-import templates from './FormRules.soy';
 import Component from 'metal-component';
 import Soy from 'metal-soy';
+
+import templates from './FormRules.soy';
 
 class FormRules extends Component {
 
@@ -26,6 +27,13 @@ class FormRules extends Component {
 			action.elementBadges = [];			
 			this.actions.push(action);	
 		}
+
+		this.elements = this.elements.map(function (element){			
+			if(element.field.length >= 30) {
+				element.field = element.field.slice(0,30) + "..."
+			}			
+			return element;
+		});
 
 		this.copyElements = {};
 		this.copyElements = this.elements.slice();

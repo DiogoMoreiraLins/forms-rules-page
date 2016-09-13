@@ -45,12 +45,12 @@
 
 						{foreach $rule in $rules}
 							{call RuleTimelineItem.render}
-								{param sizeOfRules: length($rules) /}
 								{param rule: $rule /}
-								{param elementFields: $elements /}	
+								{param index: index($rule) /}	
 								{param operator: $operator /}
-								{param removeRule: $removeRule_ /}
-								{param indexRule: index($rule) /}	
+								{param sizeOfRules: length($rules) /}							
+								{param elementFields: $elements /}									
+								{param removeRule: $removeRule_ /}								
 							{/call}
 						{/foreach}
 
@@ -59,7 +59,7 @@
 					{call TimelineButton.render}
 						{param fixedActions: true /}
 						{param onClick: $addRule_ /}
-						{param showButton: true /}
+						{param show: true /}
 					{/call}
 
 					<ul class="timeline action-list">
@@ -72,13 +72,13 @@
 
 						{foreach $action in $actions}
 							{call ActionTimelineItem.render}			
-								{param events: ['badgeSelected': $onBadgeSelected_, 'badgeRemoved': $onBadgeRemoved_, 'elementSelected': $onElementSelected_] /}					
+								{param action: $action /}	
+								{param index: index($action) /}																
 								{param sizeOfActions: length($actions) /}
 								{param copyElements: $copyElements /}	
 								{param removeAction: $removeAction_ /}
-								{param actionIndex: index($action) /}
-								{param action: $action /}
 								{param multipleChoose: $multipleChoose /}
+								{param events: ['badgeSelected': $onBadgeSelected_, 'badgeRemoved': $onBadgeRemoved_, 'elementSelected': $onElementSelected_] /}					
 							{/call}
 						{/foreach}
 
@@ -88,7 +88,7 @@
 						{call TimelineButton.render}
 							{param fixedActions: $fixedActions /}
 							{param onClick: $addAction_ /}
-							{param showButton: $shownActionButton /}
+							{param show: $shownActionButton /}
 						{/call}
 					{/if}
 				</div>

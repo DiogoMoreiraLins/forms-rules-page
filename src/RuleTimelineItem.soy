@@ -1,12 +1,12 @@
 {namespace RuleTimelineItem}
 
 /**
- * @param sizeOfRules
  * @param rule
- * @param elementFields
+ * @param index
  * @param operator
+ * @param sizeOfRules
+ * @param elementFields
  * @param removeRule
- * @param indexRule
  * @param? conditions
  */
 {template .render}
@@ -86,7 +86,7 @@
 			<div>{$operator}</div>		
 		</div>
 
-		<div class="{$sizeOfRules > 1 ? 'container__trash' : 'container__trash--hide'}" data-onclick="{$removeRule}" data-index="{$indexRule}">
+		<div class="{$sizeOfRules > 1 ? 'container__trash' : 'container__trash--hide'}" data-onclick="{$removeRule}" data-index="{$index}">
 			<svg class="lexicon-icon">
 			    <use xlink:href="../imgs/icons.svg#trash" />
 			</svg>
